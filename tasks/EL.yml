@@ -1,0 +1,27 @@
+---
+- name: install mesosslave
+  yum: state=present name={{item}}
+  with_items:
+    - mesos
+
+- name: install templated /etc/mesos-slave/* files
+  template: >
+    src=etc/mesos-slave/{{item}}.j2
+    dest=/etc/mesos-slave/{{item}}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+    - hostname
+    - ip
+  
+- name: install /etc/mesos-slave/* files
+  copy: >
+    src=etc/mesos-slave/{{item}}
+    dest=/etc/mesos-slave/{{item}}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+    - containerizers
+    - executor_registration_timeout
