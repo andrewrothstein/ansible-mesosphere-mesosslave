@@ -1,1 +1,1 @@
-{{ansible_default_ipv4['address']}}
+{{ hostvars[inventory_hostname]['ansible_' + hostvars[inventory_hostname]['mesosphere_mesosslave_iface']]['ipv4']['address'] }}
